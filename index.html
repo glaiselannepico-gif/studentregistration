@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Record System</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f1ec;
+    color:#34312d;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+    width:90%;
+    max-width:1150px;
+    margin:45px auto;
+}
+
+
+/* =========================
+   HERO HEADER
+========================= */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg,#29251f,#4b4033);
+    border-radius:18px;
+    padding:34px 38px;
+    color:white;
+    margin-bottom:18px;
+    box-shadow:0 12px 30px rgba(45,37,29,.12);
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:rgba(190,157,112,.12);
+    right:-70px;
+    top:-100px;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    background:rgba(255,255,255,.04);
+    right:120px;
+    bottom:-80px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.hero-label{
+    display:inline-block;
+    font-size:10px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:#cdb795;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.hero h1{
+    margin:0;
+    font-size:30px;
+    font-weight:700;
+    letter-spacing:-.8px;
+}
+
+.hero p{
+    margin:9px 0 0;
+    color:#d7d0c6;
+    font-size:12px;
+    line-height:1.6;
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-bottom:18px;
+}
+
+.stat-card{
+    position:relative;
+    background:#fff;
+    border:1px solid #e6dfd6;
+    border-radius:13px;
+    padding:20px 21px;
+    overflow:hidden;
+    transition:.2s;
+}
+
+.stat-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 22px rgba(54,45,35,.06);
+}
+
+.stat-card::after{
+    content:"";
+    position:absolute;
+    right:-25px;
+    bottom:-35px;
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:#f1ebe2;
+}
+
+.stat-label{
+    position:relative;
+    z-index:2;
+    display:block;
+    color:#958d83;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.7px;
+    margin-bottom:7px;
+}
+
+.stat-number{
+    position:relative;
+    z-index:2;
+    font-size:25px;
+    font-weight:700;
+    color:#38332d;
+}
+
+
+/* =========================
+   MAIN CARD
+========================= */
+
+.main-card{
+    background:#fff;
+    border:1px solid #e6dfd6;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 8px 28px rgba(54,45,35,.05);
+}
+
+
+/* =========================
+   TABS
+========================= */
+
+.tabs{
+    display:flex;
+    gap:4px;
+    padding:7px 9px 0;
+    border-bottom:1px solid #e7e0d8;
+    background:#fcfbf9;
+}
+
+.tab{
+    border:0;
+    background:transparent;
+    color:#948c82;
+    padding:13px 20px;
+    font-size:11px;
+    font-weight:600;
+    cursor:pointer;
+    border-radius:7px 7px 0 0;
+    border-bottom:2px solid transparent;
+    transition:.2s;
+}
+
+.tab:hover{
+    color:#5d5143;
+    background:#f5f1eb;
+}
+
+.tab.active{
+    color:#fff;
+    background:#9a7b58;
+    border-bottom-color:#9a7b58;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    display:none;
+    padding:29px;
+}
+
+.section.active{
+    display:block;
+}
+
+
+/* =========================
+   FORM HEADER
+========================= */
+
+.form-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:20px;
+}
+
+.form-header h2{
+    margin:0 0 5px;
+    font-size:18px;
+    color:#39352f;
+}
+
+.form-header p{
+    margin:0;
+    color:#9a938b;
+    font-size:11px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 145px;
+    gap:12px;
+    align-items:end;
+}
+
+.field label{
+    display:block;
+    font-size:10px;
+    font-weight:bold;
+    color:#655e55;
+    margin-bottom:6px;
+}
+
+input{
+    width:100%;
+    height:40px;
+    padding:0 12px;
+    border:1px solid #ddd6cd;
+    border-radius:7px;
+    background:#fff;
+    outline:none;
+    color:#4c4740;
+    font-size:11px;
+    transition:.2s;
+}
+
+input::placeholder{
+    color:#b6b0a8;
+}
+
+input:focus{
+    border-color:#9a7b58;
+    box-shadow:0 0 0 3px rgba(154,123,88,.08);
+}
+
+.add-btn{
+    width:100%;
+    height:40px;
+    border:0;
+    border-radius:7px;
+    background:#9a7b58;
+    color:#fff;
+    font-size:11px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.add-btn:hover{
+    background:#806345;
+    transform:translateY(-1px);
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+    display:none;
+    padding:10px 13px;
+    margin-bottom:15px;
+    border-radius:7px;
+    font-size:11px;
+    border:1px solid #d7e5d9;
+    background:#edf5ee;
+    color:#627b67;
+}
+
+
+/* =========================
+   TABLE TITLE
+========================= */
+
+.table-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:31px;
+    margin-bottom:13px;
+}
+
+.table-title h2{
+    margin:0 0 4px;
+    font-size:17px;
+    color:#3e3933;
+}
+
+.table-subtitle{
+    color:#a09a92;
+    font-size:10px;
+}
+
+.count{
+    background:#f1ece5;
+    color:#786b5d;
+    padding:6px 11px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:bold;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+    border:1px solid #e6dfd6;
+    border-radius:9px;
+}
+
+table{
+    width:100%;
+    min-width:760px;
+    border-collapse:collapse;
+    font-size:11px;
+}
+
+th{
+    padding:12px;
+    background:#f7f4f0;
+    color:#70675d;
+    text-align:left;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+}
+
+td{
+    padding:13px 12px;
+    border-top:1px solid #eee9e3;
+    color:#69635b;
+}
+
+tbody tr{
+    transition:.15s;
+}
+
+tbody tr:hover{
+    background:#fcfbf9;
+}
+
+
+/* =========================
+   STUDENT ID
+========================= */
+
+.id-badge{
+    display:inline-block;
+    background:#f2ede6;
+    color:#79664f;
+    padding:5px 8px;
+    border-radius:5px;
+    font-size:9px;
+    font-weight:bold;
+}
+
+
+/* =========================
+   NAME
+========================= */
+
+.student-name{
+    color:#4b463f;
+    font-weight:bold;
+}
+
+
+/* =========================
+   PROGRAM
+========================= */
+
+.program{
+    max-width:300px;
+    line-height:1.5;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions{
+    display:flex;
+    gap:6px;
+}
+
+.action-btn{
+    border:0;
+    border-radius:5px;
+    padding:7px 11px;
+    font-size:9px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.edit-btn{
+    background:#9a7b58;
+    color:white;
+}
+
+.edit-btn:hover{
+    background:#806345;
+}
+
+.archive-btn{
+    background:#f1ebe3;
+    color:#806b53;
+}
+
+.archive-btn:hover{
+    background:#e5dbce;
+}
+
+.restore-btn{
+    border:0;
+    border-radius:5px;
+    padding:7px 11px;
+    background:#9a7b58;
+    color:white;
+    font-size:9px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.restore-btn:hover{
+    background:#806345;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    background:#f0ece6;
+    color:#766c61;
+    font-size:9px;
+    font-weight:bold;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+    text-align:center;
+    padding:35px !important;
+    color:#aaa49c;
+    font-size:11px;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(37,32,27,.42);
+    backdrop-filter:blur(3px);
+    z-index:999;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-overlay.show{
+    display:flex;
+}
+
+.modal{
+    width:420px;
+    max-width:100%;
+    background:#fff;
+    border:1px solid #e3ddd5;
+    border-radius:12px;
+    padding:25px;
+    box-shadow:0 20px 50px rgba(0,0,0,.16);
+    animation:modalIn .2s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:translateY(-8px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.modal h3{
+    margin:0 0 5px;
+    font-size:18px;
+    color:#3f3a34;
+}
+
+.modal-subtitle{
+    margin:0 0 20px;
+    font-size:11px;
+    color:#9c958d;
+}
+
+.modal label{
+    display:block;
+    margin:13px 0 6px;
+    font-size:10px;
+    font-weight:bold;
+    color:#665f56;
+}
+
+.modal-buttons{
+    display:flex;
+    justify-content:flex-end;
+    gap:7px;
+    margin-top:22px;
+}
+
+.cancel-btn{
+    border:1px solid #ddd6cd;
+    background:#fff;
+    color:#716960;
+    border-radius:6px;
+    padding:8px 14px;
+    font-size:10px;
+    cursor:pointer;
+}
+
+.cancel-btn:hover{
+    background:#f7f4f0;
+}
+
+.save-btn,
+.archive-confirm{
+    border:0;
+    background:#9a7b58;
+    color:white;
+    border-radius:6px;
+    padding:8px 15px;
+    font-size:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.save-btn:hover,
+.archive-confirm:hover{
+    background:#806345;
+}
+
+
+/* =========================
+   ARCHIVE MODAL
+========================= */
+
+.archive-modal{
+    width:390px;
+    text-align:center;
+}
+
+.archive-mark{
+    width:38px;
+    height:3px;
+    background:#9a7b58;
+    margin:0 auto 17px;
+    border-radius:5px;
+}
+
+.archive-text{
+    color:#8f8981;
+    font-size:11px;
+    line-height:1.7;
+}
+
+.archive-text strong{
+    color:#514a42;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .form-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .form-grid > div:last-child{
+        grid-column:span 2;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .container{
+        width:94%;
+        margin:22px auto;
+    }
+
+    .hero{
+        padding:27px 24px;
+        border-radius:14px;
+    }
+
+    .hero h1{
+        font-size:24px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .section{
+        padding:20px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid > div:last-child{
+        grid-column:auto;
+    }
+
+    .tabs{
+        overflow-x:auto;
+    }
+
+    .tab{
+        white-space:nowrap;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+
+            <h1>
+                Student Record System
+            </h1>
+
+            <p>
+                A simple and organized way to manage
+                student records and archived information.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                Active Students
+            </span>
+
+            <strong
+                class="stat-number"
+                id="activeStat">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                Archived Students
+            </span>
+
+            <strong
+                class="stat-number"
+                id="archivedStat">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                Total Records
+            </span>
+
+            <strong
+                class="stat-number"
+                id="totalStat">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN CARD -->
+
+    <div class="main-card">
+
+
+        <!-- TABS -->
+
+        <div class="tabs">
+
+            <button
+                class="tab active"
+                onclick="showTab('students',this)">
+
+                Student List
+
+            </button>
+
+
+            <button
+                class="tab"
+                onclick="showTab('archived',this)">
+
+                Archived
+
+            </button>
+
+        </div>
+
+
+        <!-- STUDENT SECTION -->
+
+        <div
+            id="students"
+            class="section active">
+
+
+            <div class="form-header">
+
+                <div>
+
+                    <h2>
+                        Add New Student
+                    </h2>
+
+                    <p>
+                        Enter the student's information below.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="message"
+                class="message">
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <div class="field">
+
+                    <label>
+                        Student ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="studentID"
+                        placeholder="Enter student ID">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="studentName"
+                        placeholder="Enter full name">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Program
+                    </label>
+
+                    <input
+                        type="text"
+                        id="studentProgram"
+                        placeholder="Enter program">
+
+                </div>
+
+
+                <div>
+
+                    <button
+                        class="add-btn"
+                        onclick="addStudent()">
+
+                        Add Student
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- TABLE TITLE -->
+
+            <div class="table-title">
+
+                <div>
+
+                    <h2>
+                        Student Records
+                    </h2>
+
+                    <div class="table-subtitle">
+                        Currently active student records
+                    </div>
+
+                </div>
+
+
+                <span
+                    class="count"
+                    id="studentCount">
+
+                    0 Students
+
+                </span>
+
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Student ID
+                            </th>
+
+                            <th>
+                                Name
+                            </th>
+
+                            <th>
+                                Program
+                            </th>
+
+                            <th>
+                                Created At
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="studentTable">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- ARCHIVED SECTION -->
+
+        <div
+            id="archived"
+            class="section">
+
+
+            <div class="table-title">
+
+                <div>
+
+                    <h2>
+                        Archived Students
+                    </h2>
+
+                    <div class="table-subtitle">
+                        Records that have been archived
+                    </div>
+
+                </div>
+
+
+                <span
+                    class="count"
+                    id="archivedCount">
+
+                    0 Archived
+
+                </span>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Student ID
+                            </th>
+
+                            <th>
+                                Name
+                            </th>
+
+                            <th>
+                                Program
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="archivedTable">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- EDIT MODAL -->
+
+<div
+    id="editModal"
+    class="modal-overlay">
+
+    <div class="modal">
+
+        <h3>
+            Edit Student
+        </h3>
+
+        <p class="modal-subtitle">
+            Update student information.
+        </p>
+
+
+        <label>
+            Student ID
+        </label>
+
+        <input
+            type="text"
+            id="editID">
+
+
+        <label>
+            Full Name
+        </label>
+
+        <input
+            type="text"
+            id="editName">
+
+
+        <label>
+            Program
+        </label>
+
+        <input
+            type="text"
+            id="editProgram">
+
+
+        <div class="modal-buttons">
+
+            <button
+                class="cancel-btn"
+                onclick="closeEditModal()">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                class="save-btn"
+                onclick="saveEdit()">
+
+                Save Changes
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ARCHIVE MODAL -->
+
+<div
+    id="archiveModal"
+    class="modal-overlay">
+
+    <div class="modal archive-modal">
+
+        <div class="archive-mark"></div>
+
+        <h3>
+            Archive Student?
+        </h3>
+
+        <p class="archive-text">
+
+            Are you sure you want to archive
+            <strong id="archiveStudentName"></strong>?
+
+            <br>
+
+            This record will be moved to
+            Archived Students.
+
+        </p>
+
+
+        <div class="modal-buttons">
+
+            <button
+                class="cancel-btn"
+                onclick="closeArchiveModal()">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                class="archive-confirm"
+                onclick="confirmArchive()">
+
+                Archive
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+let students = [
+
+    {
+        id:"2026-245",
+        name:"Glaisel Anne Pico",
+        program:"Bachelor Of Science In Information Technology",
+        date:"Sep 18, 2026"
+    },
+
+    {
+        id:"2024-526",
+        name:"Natasha Valeria",
+        program:"Bachelor Of Science In Nursing",
+        date:"Sep 18, 2026"
+    }
+
+];
+
+let archivedStudents = [];
+
+let editIndex = null;
+
+let archiveIndex = null;
+
+
+/* =========================================================
+   DISPLAY STUDENTS
+========================================================= */
+
+function displayStudents(){
+
+    const table =
+        document.getElementById("studentTable");
+
+    table.innerHTML = "";
+
+
+    document.getElementById("studentCount").innerText =
+        students.length +
+        (students.length === 1
+            ? " Student"
+            : " Students");
+
+
+    if(students.length === 0){
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="empty">
+
+                    No active student records found.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        updateStats();
+
+        return;
+    }
+
+
+    students.forEach(function(student,index){
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>
+
+                    <span class="id-badge">
+                        ${escapeHTML(student.id)}
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <span class="student-name">
+                        ${escapeHTML(student.name)}
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <div class="program">
+                        ${escapeHTML(student.program)}
+                    </div>
+
+                </td>
+
+
+                <td>
+                    ${escapeHTML(student.date)}
+                </td>
+
+
+                <td>
+
+                    <div class="actions">
+
+                        <button
+                            class="action-btn edit-btn"
+                            onclick="openEditModal(${index})">
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+                            class="action-btn archive-btn"
+                            onclick="openArchiveModal(${index})">
+
+                            Archive
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   DISPLAY ARCHIVED
+========================================================= */
+
+function displayArchived(){
+
+    const table =
+        document.getElementById("archivedTable");
+
+    table.innerHTML = "";
+
+
+    document.getElementById("archivedCount").innerText =
+        archivedStudents.length + " Archived";
+
+
+    if(archivedStudents.length === 0){
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="empty">
+
+                    No archived student records.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        updateStats();
+
+        return;
+    }
+
+
+    archivedStudents.forEach(function(student,index){
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>
+
+                    <span class="id-badge">
+                        ${escapeHTML(student.id)}
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <span class="student-name">
+                        ${escapeHTML(student.name)}
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <div class="program">
+                        ${escapeHTML(student.program)}
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    <span class="status">
+                        Archived
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <button
+                        class="restore-btn"
+                        onclick="restoreStudent(${index})">
+
+                        Restore
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   ADD STUDENT
+========================================================= */
+
+function addStudent(){
+
+    const id =
+        document.getElementById("studentID")
+        .value.trim();
+
+
+    const name =
+        document.getElementById("studentName")
+        .value.trim();
+
+
+    const program =
+        document.getElementById("studentProgram")
+        .value.trim();
+
+
+    if(!id || !name || !program){
+
+        showError(
+            "Please fill in all fields."
+        );
+
+        return;
+    }
+
+
+    const duplicate =
+        students.some(function(student){
+
+            return student.id.toLowerCase()
+                === id.toLowerCase();
+
+        });
+
+
+    if(duplicate){
+
+        showError(
+            "Student ID already exists."
+        );
+
+        return;
+    }
+
+
+    students.push({
+
+        id:id,
+
+        name:name,
+
+        program:program,
+
+        date:getDate()
+
+    });
+
+
+    document.getElementById("studentID").value = "";
+
+    document.getElementById("studentName").value = "";
+
+    document.getElementById("studentProgram").value = "";
+
+
+    displayStudents();
+
+    showMessage(
+        "Student added successfully."
+    );
+
+}
+
+
+/* =========================================================
+   EDIT
+========================================================= */
+
+function openEditModal(index){
+
+    editIndex = index;
+
+
+    const student =
+        students[index];
+
+
+    document.getElementById("editID").value =
+        student.id;
+
+
+    document.getElementById("editName").value =
+        student.name;
+
+
+    document.getElementById("editProgram").value =
+        student.program;
+
+
+    document
+        .getElementById("editModal")
+        .classList.add("show");
+
+}
+
+
+function closeEditModal(){
+
+    document
+        .getElementById("editModal")
+        .classList.remove("show");
+
+    editIndex = null;
+
+}
+
+
+function saveEdit(){
+
+    if(editIndex === null){
+        return;
+    }
+
+
+    const id =
+        document.getElementById("editID")
+        .value.trim();
+
+
+    const name =
+        document.getElementById("editName")
+        .value.trim();
+
+
+    const program =
+        document.getElementById("editProgram")
+        .value.trim();
+
+
+    if(!id || !name || !program){
+
+        alert(
+            "Please fill in all fields."
+        );
+
+        return;
+    }
+
+
+    const duplicate =
+        students.some(function(student,index){
+
+            return index !== editIndex &&
+                student.id.toLowerCase()
+                === id.toLowerCase();
+
+        });
+
+
+    if(duplicate){
+
+        alert(
+            "Another student already uses this Student ID."
+        );
+
+        return;
+    }
+
+
+    students[editIndex].id = id;
+
+    students[editIndex].name = name;
+
+    students[editIndex].program = program;
+
+
+    closeEditModal();
+
+    displayStudents();
+
+    showMessage(
+        "Student updated successfully."
+    );
+
+}
+
+
+/* =========================================================
+   ARCHIVE
+========================================================= */
+
+function openArchiveModal(index){
+
+    archiveIndex = index;
+
+
+    const student =
+        students[index];
+
+
+    document.getElementById(
+        "archiveStudentName"
+    ).innerText = student.name;
+
+
+    document
+        .getElementById("archiveModal")
+        .classList.add("show");
+
+}
+
+
+function closeArchiveModal(){
+
+    document
+        .getElementById("archiveModal")
+        .classList.remove("show");
+
+    archiveIndex = null;
+
+}
+
+
+function confirmArchive(){
+
+    if(archiveIndex === null){
+        return;
+    }
+
+
+    archivedStudents.push(
+        students[archiveIndex]
+    );
+
+
+    students.splice(
+        archiveIndex,
+        1
+    );
+
+
+    closeArchiveModal();
+
+
+    displayStudents();
+
+    displayArchived();
+
+
+    showMessage(
+        "Student archived successfully."
+    );
+
+}
+
+
+/* =========================================================
+   RESTORE
+========================================================= */
+
+function restoreStudent(index){
+
+    const student =
+        archivedStudents[index];
+
+
+    const duplicate =
+        students.some(function(activeStudent){
+
+            return activeStudent.id.toLowerCase()
+                === student.id.toLowerCase();
+
+        });
+
+
+    if(duplicate){
+
+        alert(
+            "Cannot restore this student because the Student ID already exists."
+        );
+
+        return;
+    }
+
+
+    students.push(student);
+
+    archivedStudents.splice(index,1);
+
+
+    displayStudents();
+
+    displayArchived();
+
+
+    showMessage(
+        "Student restored successfully."
+    );
+
+
+    showTab(
+        "students",
+        document.querySelector(".tab")
+    );
+
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+function showTab(tab,button){
+
+    document
+        .querySelectorAll(".section")
+        .forEach(function(section){
+
+            section.classList.remove("active");
+
+        });
+
+
+    document
+        .getElementById(tab)
+        .classList.add("active");
+
+
+    document
+        .querySelectorAll(".tab")
+        .forEach(function(tabButton){
+
+            tabButton.classList.remove("active");
+
+        });
+
+
+    button.classList.add("active");
+
+
+    displayArchived();
+
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+function showMessage(text){
+
+    const message =
+        document.getElementById("message");
+
+
+    message.innerText = text;
+
+    message.style.background = "#edf5ee";
+
+    message.style.borderColor = "#d7e5d9";
+
+    message.style.color = "#627b67";
+
+    message.style.display = "block";
+
+
+    setTimeout(function(){
+
+        message.style.display = "none";
+
+    },3000);
+
+}
+
+
+function showError(text){
+
+    const message =
+        document.getElementById("message");
+
+
+    message.innerText = text;
+
+    message.style.background = "#f7ece9";
+
+    message.style.borderColor = "#ead5d0";
+
+    message.style.color = "#95685e";
+
+    message.style.display = "block";
+
+
+    setTimeout(function(){
+
+        message.style.display = "none";
+
+    },3000);
+
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function getDate(){
+
+    return new Date().toLocaleDateString(
+        "en-US",
+        {
+            month:"short",
+            day:"numeric",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+function updateStats(){
+
+    const active =
+        students.length;
+
+
+    const archived =
+        archivedStudents.length;
+
+
+    document.getElementById(
+        "activeStat"
+    ).innerText = active;
+
+
+    document.getElementById(
+        "archivedStat"
+    ).innerText = archived;
+
+
+    document.getElementById(
+        "totalStat"
+    ).innerText =
+        active + archived;
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   MODAL CLICK OUTSIDE
+========================================================= */
+
+document
+    .getElementById("editModal")
+    .addEventListener(
+        "click",
+        function(e){
+
+            if(e.target === this){
+                closeEditModal();
+            }
+
+        }
+    );
+
+
+document
+    .getElementById("archiveModal")
+    .addEventListener(
+        "click",
+        function(e){
+
+            if(e.target === this){
+                closeArchiveModal();
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "Escape"){
+
+            closeEditModal();
+
+            closeArchiveModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   START
+========================================================= */
+
+displayStudents();
+
+displayArchived();
+
+updateStats();
+
+</script>
+
+</body>
+</html>
